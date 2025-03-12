@@ -53,7 +53,7 @@ const editProduct = async (req,res) => {
             imageUrl,
             category
         })
-        res.status(201).json({message: "Product updated successfully"})
+        res.status(201).json({message: selectedProduct})
     } catch (error) {
         console.log("something went wrong in edit product controller", error)
         

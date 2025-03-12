@@ -11,7 +11,7 @@ function Home() {
     })
   const { allProducts, getAllProducts, removeProduct, editProduct } = useProductsStore()
   
-  const handleUpdate = (id) => {
+  const handleUpdate = (id, newForm) => {
     if(newForm.name === '' || newForm.price === '' || newForm.imageUrl === '' || newForm.category === '')
     {return { toast: toast.error('Please fill the form')}}
     editProduct(id, newForm)
@@ -81,7 +81,7 @@ function Home() {
 
 
     <div className="modal-action flex justify-evenly">
-        <button className="btn btn-primary w-1/2" onClick={()=>handleUpdate(product._id)}>start</button>
+        <button className="btn btn-primary w-1/2" onClick={()=>handleUpdate(product._id, newForm)}>start</button>
       <form method="dialog">
         <button className="btn btn-primary">Close</button>
       </form>

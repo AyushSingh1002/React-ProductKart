@@ -36,17 +36,28 @@ export const useProductsStore = create((set, get) => ({
     },
     editProduct: async (id, productData) => {
         try {
-            const { allProducts } = get();
-            const res = await axiosInstance.put(`/${id}`, productData)
-            const updatedProducts = allProducts.map((product) =>
-                allProducts._id === id ? res.data : product
-              );
-            set({ allProducts : updatedProducts })
-            toast.success("Product edited successfully");
+          const { allProducts } = get(); // Get the current state
+          console.log("Current products:", allProducts); // Log current state
+      
+          const res = await axiosInstance.put(`/${id}`, productData); // API call
+          console.log("Edited product:", res.data); // Log updated product
+      
+          // Update the state
+            set({allProducts : allProducts.map((product) => {
+                if(product._id === id) {
+                    return {
+                        ...product,
+                        ...productData
+                    }
+                }
+                return product
+            })})
+          
+      
+          toast.success("Product edited successfully");
         } catch (error) {
-            console.error("Error editing product:", error);
-            
+          console.error("Error editing product:", error);
+          toast.error("Failed to edit product");
         }
-    }
-    
-}));
+      },
+      }));
